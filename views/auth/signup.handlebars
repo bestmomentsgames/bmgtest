@@ -1,0 +1,76 @@
+ {{!-- <script src="https://apis.google.com/js/api:client.js"></script>
+  <script>
+  var googleUser = {};
+  var startApp = () => {
+    gapi.load('auth2', function(){
+      auth2 = gapi.auth2.init({
+        client_id: '179029882361-a6uhet0fjheul23d8truimc30u572fr4.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+         plugin_name: 'login'
+        
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+  function attachSignin(element) {
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+           var id_token = googleUser.getAuthResponse().id_token;
+          var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/auth/google');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+          console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send(JSON.stringify({token:id_token}));
+        }, function(error) {
+          alert(JSON.stringify(error, undefined, 2));
+        });
+  }
+  </script> --}}
+    {{>_navbar}}
+    
+    <!-- Account Box Create Account -->
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-lg-4 col-md-3"></div>
+            <div class="col-lg-4 col-md-6 col-sm-8 account-box-create-account">
+              {{#each erros}}
+                  <div class="alert alert-danger">{{text}}</div>
+              {{else}}
+              {{/each}}
+              {{>_msg}}
+              <h4 class="mb-4">Create an account</h4>
+               <form action="/auth/signup" method="post">
+                  <input class="input-class mb-3" type="text" name="user" placeholder="User" required>
+                  <input class="input-class mb-3" type="email" name="email" placeholder="Email" required>
+                  <input class="input-class mb-3" type="password" name="password" placeholder="Password" required>
+                  <input class="input-class mb-3" type="password" name="password2" placeholder="Repeat your password" required>
+                  <button type="submit">Create account</button><br>
+                </form>
+               
+                  <a href="/auth/google"  id="customBtn" class="google btn-social-media mt-4">
+                    <span class="social-media-icon"><i class="fa fa-google fa-fw"></i></span> <span class="social-media-text">Sign up with Google</span>
+                  </a>
+             
+              
+                  <a href="/auth/facebook" class="fb btn-social-media mt-2 mb-3">
+                    <span class="social-media-icon"><i class="fa fa-facebook fa-fw"></i></span> <span class="social-media-text">Sign up with Facebook</span>
+                  </a>
+                  <br>
+
+                  <a href="/auth/login">Already have an account?</a><br><br>
+              
+            </div>
+            <div class="col-lg-4 col-md-3"></div>
+        </div>
+    </div>
+
+    <!-- Account Box Create Account - End -->
+
+    {{>_footer}}
+   
+
+    {{!-- <script>startApp()</script> --}}
